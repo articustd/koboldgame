@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-@onready var wander_timer = $WanderTimer
+#@onready var wander_timer = $WanderTimer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -21,17 +21,17 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var directionx = Input.get_axis("move_left", "move_right")
-	var directiony = Input.get_axis("move_up", "move_down")
-	
-	if directionx:
-		velocity.x = directionx * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	if directiony:
-		velocity.y = directiony * SPEED
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-
+	#var directionx = Input.get_axis("move_left", "move_right")
+	#var directiony = Input.get_axis("move_up", "move_down")
+	#
+	#if directionx:
+		#velocity.x = directionx * SPEED           
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, SPEED)
+		#
+	#if directiony:
+		#velocity.y = directiony * SPEED
+	#else:
+		#velocity.y = move_toward(velocity.y, 0, SPEED)
+#
 	move_and_slide()

@@ -36,8 +36,6 @@ shape = SubResource("RectangleShape2D_uha3u")
 [node name="WanderTimer" type="Timer" parent="."]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_postprocessing = 1
-avoidance_enabled = true
 debug_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
