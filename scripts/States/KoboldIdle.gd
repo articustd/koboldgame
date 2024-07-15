@@ -3,6 +3,7 @@ class_name KoboldIdle
 
 @export var kobold: CharacterBody2D
 @export var move_speed := 30.0
+@export var navAgent : NavigationAgent2D
 
 var move_direction : Vector2
 var wander_time : float
@@ -24,3 +25,11 @@ func Update(delta: float):
 func Physics_Update(delta: float):
 	if kobold:
 		kobold.velocity = move_direction * move_speed
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			navAgent.debug_enabled = true
+			Transitioned.emit(self, "Goto")
+			#var camera = get_viewport().get_camera_2d()
+			#navAgent.target_position = (camera.zoom + camera.global_position) + event.position

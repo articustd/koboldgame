@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d12oujui04gwv"]
+[gd_scene load_steps=8 format=3 uid="uid://d12oujui04gwv"]
 
 [ext_resource type="Texture2D" uid="uid://wui48nxqq0mg" path="res://assets/sprites/kobold.png" id="1_ppwat"]
 [ext_resource type="Script" path="res://scripts/kobold.gd" id="1_ymwg2"]
-[ext_resource type="Script" path="res://scripts/States/StateMachine.gd" id="3_5g50j"]
 [ext_resource type="Script" path="res://scripts/States/KoboldGoto.gd" id="3_ej67w"]
 [ext_resource type="Script" path="res://scripts/States/KoboldIdle.gd" id="4_8tuer"]
 
@@ -22,7 +21,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uha3u"]
-size = Vector2(28, 28)
+size = Vector2(32, 32)
 
 [node name="Kobold" type="CharacterBody2D"]
 script = ExtResource("1_ymwg2")
@@ -36,22 +35,18 @@ shape = SubResource("RectangleShape2D_uha3u")
 [node name="WanderTimer" type="Timer" parent="."]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 10.0
 path_postprocessing = 1
 avoidance_enabled = true
+debug_enabled = true
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_5g50j")
-initial_state = NodePath("Idle")
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_8tuer")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("kobold", "navAgent")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("kobold")]
 script = ExtResource("4_8tuer")
 kobold = NodePath("../..")
-navAgent = NodePath("../../NavigationAgent2D")
 
 [node name="Goto" type="Node" parent="StateMachine" node_paths=PackedStringArray("kobold", "navAgent")]
 script = ExtResource("3_ej67w")
 kobold = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
-
-[connection signal="path_changed" from="NavigationAgent2D" to="StateMachine/Idle" method="_on_navigation_agent_2d_path_changed"]
