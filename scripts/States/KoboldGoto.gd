@@ -23,8 +23,8 @@ func Physics_Update(delta: float):
 	
 	var currPos = kobold.global_position
 	var nextPathPos = navAgent.get_next_path_position()
-	print("Kobold Position: " + str(kobold.global_position))
-	print("Kobold Next Position: " + str(nextPathPos))
+	#print("Kobold Position: " + str(kobold.global_position))
+	#print("Kobold Next Position: " + str(nextPathPos))
 	kobold.velocity = currPos.direction_to(nextPathPos) * move_speed
 	#Input.get_vector()
 	#if kobold:
@@ -33,6 +33,6 @@ func Physics_Update(delta: float):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
-			navAgent.target_position = event.position
-			
-			print(event.position)
+			var camera = get_viewport().get_camera_2d()
+			print(str(camera.global_position))
+			navAgent.target_position = (camera.zoom + camera.global_position) + event.position
