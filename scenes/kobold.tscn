@@ -22,9 +22,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uha3u"]
-size = Vector2(28, 28)
+size = Vector2(30, 30)
 
 [node name="Kobold" type="CharacterBody2D"]
+safe_margin = 0.001
 script = ExtResource("1_ymwg2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
