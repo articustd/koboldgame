@@ -14,7 +14,7 @@ func Physics_Update(delta: float):
 		kobold.velocity.x = move_toward(kobold.velocity.x, 0, move_speed)
 		kobold.velocity.y = move_toward(kobold.velocity.y, 0, move_speed)
 		navAgent.debug_enabled = false
-		Transitioned.emit(self, "Idle")
+		Transitioned.emit(self, "Wait")
 		return
 	
 	var currPos = kobold.global_position

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d12oujui04gwv"]
+[gd_scene load_steps=10 format=3 uid="uid://d12oujui04gwv"]
 
 [ext_resource type="Texture2D" uid="uid://wui48nxqq0mg" path="res://assets/sprites/kobold.png" id="1_ppwat"]
 [ext_resource type="Script" path="res://scripts/kobold.gd" id="1_ymwg2"]
 [ext_resource type="Script" path="res://scripts/States/StateMachine.gd" id="3_5g50j"]
 [ext_resource type="Script" path="res://scripts/States/KoboldGoto.gd" id="3_ej67w"]
 [ext_resource type="Script" path="res://scripts/States/KoboldIdle.gd" id="4_8tuer"]
+[ext_resource type="Script" path="res://scripts/States/KoboldWait.gd" id="6_4palb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ht5uu"]
 atlas = ExtResource("1_ppwat")
@@ -28,6 +29,15 @@ size = Vector2(30, 30)
 safe_margin = 0.001
 script = ExtResource("1_ymwg2")
 
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -93.0
+offset_top = -42.0
+offset_right = 94.0
+offset_bottom = -19.0
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_40yd2")
 
@@ -41,9 +51,10 @@ path_desired_distance = 10.0
 path_postprocessing = 1
 avoidance_enabled = true
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "debug_label")]
 script = ExtResource("3_5g50j")
 initial_state = NodePath("Idle")
+debug_label = NodePath("../DebugLabel")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("kobold", "navAgent")]
 script = ExtResource("4_8tuer")
@@ -54,5 +65,10 @@ navAgent = NodePath("../../NavigationAgent2D")
 script = ExtResource("3_ej67w")
 kobold = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
+
+[node name="Wait" type="Node" parent="StateMachine" node_paths=PackedStringArray("kobold")]
+script = ExtResource("6_4palb")
+kobold = NodePath("../..")
+maxWait = 2
 
 [connection signal="path_changed" from="NavigationAgent2D" to="StateMachine/Idle" method="_on_navigation_agent_2d_path_changed"]

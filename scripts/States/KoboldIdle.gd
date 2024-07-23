@@ -31,5 +31,3 @@ func _input(event):
 		if event.pressed:
 			navAgent.debug_enabled = true
 			Transitioned.emit(self, "Goto")
-			#var camera = get_viewport().get_camera_2d()
-			#navAgent.target_position = (camera.zoom + camera.global_position) + event.position
